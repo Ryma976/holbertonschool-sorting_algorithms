@@ -1,4 +1,5 @@
 #include "sort.h"
+#include <stdio.h>
 
 /**
  * swap - swaps two integers
@@ -8,6 +9,7 @@
 void swap(int *a, int *b)
 {
 	int temp = *a;
+
 	*a = *b;
 	*b = temp;
 }
@@ -46,13 +48,13 @@ void sift_down(int *array, size_t size, size_t i, size_t heap_size)
  */
 void heap_sort(int *array, size_t size)
 {
-	ssize_t i;
+	size_t i;
 
 	if (!array || size < 2)
 		return;
 
-	for (i = (size / 2) - 1; i >= 0; i--)
-		sift_down(array, size, i, size);
+	for (i = (size / 2); i > 0; i--)
+		sift_down(array, size, i - 1, size);
 
 	for (i = size - 1; i > 0; i--)
 	{
