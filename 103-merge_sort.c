@@ -3,7 +3,10 @@
 #include "sort.h"
 
 /**
- * print_subarray - prints part of array
+ * print_subarray - Prints part of an array
+ * @array: Array to print
+ * @start: Starting index
+ * @size: Number of elements to print
  */
 void print_subarray(int *array, size_t start, size_t size)
 {
@@ -19,7 +22,12 @@ void print_subarray(int *array, size_t start, size_t size)
 }
 
 /**
- * merge - merges two halves
+ * merge - Merges two sorted parts of an array
+ * @array: Array to sort
+ * @temp: Temporary array
+ * @left: Left index
+ * @mid: Middle index
+ * @right: Right index
  */
 void merge(int *array, int *temp, size_t left, size_t mid, size_t right)
 {
@@ -47,7 +55,11 @@ void merge(int *array, int *temp, size_t left, size_t mid, size_t right)
 }
 
 /**
- * merge_sort_recursive - recursion
+ * merge_sort_recursive - Sorts an array recursively
+ * @array: Array to sort
+ * @temp: Temporary array
+ * @left: Left index
+ * @right: Right index
  */
 void merge_sort_recursive(int *array, int *temp, size_t left, size_t right)
 {
@@ -57,27 +69,27 @@ void merge_sort_recursive(int *array, int *temp, size_t left, size_t right)
 		return;
 
 	mid = (left + right) / 2;
-
 	merge_sort_recursive(array, temp, left, mid);
 	merge_sort_recursive(array, temp, mid, right);
 	merge(array, temp, left, mid, right);
 }
 
 /**
- * merge_sort - main function
+ * merge_sort - Sorts an array using merge sort
+ * @array: Array to sort
+ * @size: Size of the array
  */
 void merge_sort(int *array, size_t size)
 {
 	int *temp;
 
-	if (!array || size < 2)
+	if (array == NULL || size < 2)
 		return;
 
 	temp = malloc(sizeof(int) * size);
-	if (!temp)
+	if (temp == NULL)
 		return;
 
 	merge_sort_recursive(array, temp, 0, size);
-
 	free(temp);
 }
