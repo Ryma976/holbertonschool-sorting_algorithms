@@ -4,7 +4,11 @@
 #include <stddef.h>
 
 /**
- * enum kind_e - card kinds
+ * enum kind_e - Card kinds
+ * @SPADE: Spade card
+ * @HEART: Heart card
+ * @CLUB: Club card
+ * @DIAMOND: Diamond card
  */
 typedef enum kind_e
 {
@@ -16,8 +20,8 @@ typedef enum kind_e
 
 /**
  * struct card_s - Playing card
- * @value: value of card
- * @kind: kind of card
+ * @value: Value of card
+ * @kind: Kind of card
  */
 typedef struct card_s
 {
@@ -27,9 +31,9 @@ typedef struct card_s
 
 /**
  * struct deck_node_s - Deck node
- * @card: pointer to card
- * @prev: previous node
- * @next: next node
+ * @card: Pointer to card
+ * @prev: Previous node
+ * @next: Next node
  */
 typedef struct deck_node_s
 {
@@ -40,4 +44,4 @@ typedef struct deck_node_s
 
 void sort_deck(deck_node_t **deck);
 
-#endif
+#endif /* DECK_H */

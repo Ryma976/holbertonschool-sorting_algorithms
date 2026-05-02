@@ -2,7 +2,10 @@
 #include <string.h>
 
 /**
- * get_value - converts card value to number
+ * get_value - Converts card value to number
+ * @value: Card value
+ *
+ * Return: Card value index
  */
 int get_value(const char *value)
 {
@@ -19,7 +22,11 @@ int get_value(const char *value)
 }
 
 /**
- * compare_cards - compare two cards
+ * compare_cards - Compares two cards
+ * @a: First card node
+ * @b: Second card node
+ *
+ * Return: Difference between cards
  */
 int compare_cards(deck_node_t *a, deck_node_t *b)
 {
@@ -33,7 +40,10 @@ int compare_cards(deck_node_t *a, deck_node_t *b)
 }
 
 /**
- * swap_nodes - swaps two nodes
+ * swap_nodes - Swaps two adjacent nodes
+ * @deck: Pointer to deck head
+ * @a: First node
+ * @b: Second node
  */
 void swap_nodes(deck_node_t **deck, deck_node_t *a, deck_node_t *b)
 {
@@ -47,13 +57,13 @@ void swap_nodes(deck_node_t **deck, deck_node_t *a, deck_node_t *b)
 
 	a->next = b->next;
 	b->prev = a->prev;
-
 	b->next = a;
 	a->prev = b;
 }
 
 /**
- * sort_deck - sorts the deck
+ * sort_deck - Sorts a deck of cards
+ * @deck: Pointer to deck head
  */
 void sort_deck(deck_node_t **deck)
 {
