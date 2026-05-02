@@ -3,18 +3,25 @@
 
 /**
  * swap - swaps two ints
+ * @a: first
+ * @b: second
  */
 void swap(int *a, int *b)
 {
 	int tmp = *a;
+
 	*a = *b;
 	*b = tmp;
 }
 
 /**
- * bitonic_merge - merges bitonic sequence
+ * bitonic_merge - merges sequence
+ * @array: array
+ * @start: start index
+ * @seq: sequence size
+ * @dir: direction
  */
-void bitonic_merge(int *array, size_t size, size_t start, size_t seq, int dir)
+void bitonic_merge(int *array, size_t start, size_t seq, int dir)
 {
 	size_t i, k = seq / 2;
 
@@ -22,43 +29,47 @@ void bitonic_merge(int *array, size_t size, size_t start, size_t seq, int dir)
 	{
 		for (i = start; i < start + k; i++)
 		{
-			if ((dir == 1 && array[i] > array[i + k]) ||
-				(dir == 0 && array[i] < array[i + k]))
-			{
+			if ((dir && array[i] > array[i + k]) ||
+				(!dir && array[i] < array[i + k]))
 				swap(&array[i], &array[i + k]);
-				print_array(array, size);
-			}
 		}
-		bitonic_merge(array, size, start, k, dir);
-		bitonic_merge(array, size, start + k, k, dir);
+
+		bitonic_merge(array, start, k, dir);
+		bitonic_merge(array, start + k, k, dir);
 	}
 }
 
 /**
  * bitonic_sort_rec - recursive sort
+ * @array: array
+ * @size: total size
+ * @start: start index
+ * @seq: sequence size
+ * @dir: direction
  */
-void bitonic_sort_rec(int *array, size_t size, size_t start, size_t seq, int dir)
+void bitonic_sort_rec(int *array, size_t size, size_t start,
+	size_t seq, int dir)
 {
 	size_t k = seq / 2;
 
 	if (seq > 1)
 	{
-		printf("Merging [%lu/%lu] (%s):\n", seq, size,
-			dir ? "UP" : "DOWN");
+		printf("Merging [%lu/%lu] (%s):\n",
+			seq, size, dir ? "UP" : "DOWN");
 		print_array(array + start, seq);
 
 		bitonic_sort_rec(array, size, start, k, 1);
 		bitonic_sort_rec(array, size, start + k, k, 0);
-		bitonic_merge(array, size, start, seq, dir);
+		bitonic_merge(array, start, seq, dir);
 
-		printf("Result [%lu/%lu] (%s):\n", seq, size,
-			dir ? "UP" : "DOWN");
+		printf("Result [%lu/%lu] (%s):\n",
+			seq, size, dir ? "UP" : "DOWN");
 		print_array(array + start, seq);
 	}
 }
 
 /**
- * bitonic_sort - sorts using bitonic sort
+ * bitonic_sort - main
  * @array: array
  * @size: size
  */
