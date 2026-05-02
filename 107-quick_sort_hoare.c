@@ -1,35 +1,39 @@
 #include "sort.h"
-#include <stdio.h>
 
 /**
- * swap - swaps two integers
- * @a: first
- * @b: second
+ * swap - Swaps two integers
+ * @a: First integer
+ * @b: Second integer
  */
 void swap(int *a, int *b)
 {
-	int tmp = *a;
+	int tmp;
 
+	tmp = *a;
 	*a = *b;
 	*b = tmp;
 }
 
 /**
- * hoare_partition - partition using Hoare scheme
- * @array: array
- * @size: total size (for printing)
- * @low: left index
- * @high: right index
+ * hoare_partition - Partitions an array using Hoare scheme
+ * @array: Array to partition
+ * @size: Size of the array
+ * @left: Left index
+ * @right: Right index
  *
- * Return: partition index
+ * Return: Partition index
  */
-int hoare_partition(int *array, size_t size, int low, int high)
+int hoare_partition(int *array, size_t size, int left, int right)
 {
-	int pivot = array[high];
-	int i = low - 1;
-	int j = high + 1;
+	int pivot;
+	int i;
+	int j;
 
-	while (1)
+	pivot = array[right];
+	i = left - 1;
+	j = right + 1;
+
+	while (i < j)
 	{
 		do {
 			i++;
@@ -39,42 +43,44 @@ int hoare_partition(int *array, size_t size, int low, int high)
 			j--;
 		} while (array[j] > pivot);
 
-		if (i >= j)
-			return (j);
-
-		swap(&array[i], &array[j]);
-		print_array(array, size);
+		if (i < j)
+		{
+			swap(&array[i], &array[j]);
+			print_array(array, size);
+		}
 	}
+
+	return (i);
 }
 
 /**
- * quick_sort_rec - recursive quick sort
- * @array: array
- * @size: total size
- * @low: left index
- * @high: right index
+ * quick_sort_recursive - Sorts an array recursively
+ * @array: Array to sort
+ * @size: Size of the array
+ * @left: Left index
+ * @right: Right index
  */
-void quick_sort_rec(int *array, size_t size, int low, int high)
+void quick_sort_recursive(int *array, size_t size, int left, int right)
 {
-	int p;
+	int part;
 
-	if (low < high)
+	if (left < right)
 	{
-		p = hoare_partition(array, size, low, high);
-		quick_sort_rec(array, size, low, p);
-		quick_sort_rec(array, size, p + 1, high);
+		part = hoare_partition(array, size, left, right);
+		quick_sort_recursive(array, size, left, part - 1);
+		quick_sort_recursive(array, size, part, right);
 	}
 }
 
 /**
- * quick_sort_hoare - main function
- * @array: array
- * @size: size
+ * quick_sort_hoare - Sorts an array using quick sort Hoare partition
+ * @array: Array to sort
+ * @size: Size of the array
  */
 void quick_sort_hoare(int *array, size_t size)
 {
-	if (!array || size < 2)
+	if (array == NULL || size < 2)
 		return;
 
-	quick_sort_rec(array, size, 0, size - 1);
+	quick_sort_recursive(array, size, 0, size - 1);
 }
