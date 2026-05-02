@@ -6,8 +6,8 @@
  */
 int get_value(const char *value)
 {
-	char *values[] = {"Ace","2","3","4","5","6","7","8","9","10",
-		"Jack","Queen","King"};
+	char *values[] = {"Ace", "2", "3", "4", "5", "6", "7", "8", "9", "10",
+		"Jack", "Queen", "King"};
 	int i;
 
 	for (i = 0; i < 13; i++)
